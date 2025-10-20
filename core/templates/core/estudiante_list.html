@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Estudiantes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #2c2c2c;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand {
+            color: #ff4d4d !important;
+            font-weight: 600;
+        }
+        .navbar-nav .nav-link {
+            color: #e6e6e6 !important;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ff4d4d !important;
+        }
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .card-header {
+            background-color: #ff4d4d;
+            color: white;
+            font-weight: 600;
+            font-size: 1.25rem;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        table {
+            margin-bottom: 0;
+        }
+        thead {
+            background-color: #f1f1f1;
+        }
+        th {
+            color: #ff4d4d;
+            font-weight: 600;
+        }
+        tbody tr:hover {
+            background-color: #fff5f5;
+        }
+        .empty-msg {
+            color: #888;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+        footer {
+            background-color: #343a40;
+            color: #bbb;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">Gestión Escolar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Cursos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Profesores</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header text-center">
+                        Lista de Estudiantes
+                    </div>
+                    <div class="card-body p-0">
+                        {% if lista_estudiantes %}
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">N° Estudiante</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Apellido</th>
+                                        <th scope="col">Documento</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for est in lista_estudiantes %}
+                                    <tr class="text-center">
+                                        <td>{{ est.nro_estudiante }}</td>
+                                        <td>{{ est.nombre }}</td>
+                                        <td>{{ est.apellido }}</td>
+                                        <td>{{ est.documento }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                            <div class="empty-msg">No se encontraron estudiantes</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="mb-0">&copy; 2025 Gestión Escolar — Diseño moderno en gris y rojo claro ❤️</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
