@@ -1,0 +1,36 @@
+{% extends "core/index.html" %}
+
+{% block title %}Nuevo Estudiante{% endblock %}
+
+{% block contenido %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-danger text-white text-center fw-bold">
+                Crear nuevo estudiante
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-danger">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="text-danger small">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-danger rounded-pill px-4">Guardar</button>
+                        <a href="{% url 'estudiante_list' %}" class="btn btn-secondary rounded-pill px-4">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
