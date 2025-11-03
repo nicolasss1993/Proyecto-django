@@ -3,6 +3,14 @@
 {% block title %}Lista de Estudiantes{% endblock %}
 
 {% block contenido %}
+
+    <form method="GET" class="mb-3">
+        <div class="input-group" style="max-width: 400px;">
+            <input type="text" name="q" class="form-control" placeholder="Buscar por nombre..." value="{{ query }}">
+            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+        </div>
+    </form>
+
 <div class="row justify-content-center">
     <div class="col-md-10">
         <div class="card shadow-sm">
@@ -22,6 +30,7 @@
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Documento</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,6 +40,11 @@
                                 <td>{{ est.nombre }}</td>
                                 <td>{{ est.apellido }}</td>
                                 <td>{{ est.documento }}</td>
+                                <td class="text-center">
+                                    <a href="{% url 'estudiante_detail' est.nro_estudiante %}" class="btn btn-sm btn-outline-warning me-1">Ver</a>
+                                    <a href="{% url 'estudiante_edit' est.nro_estudiante %}" class="btn btn-sm btn-outline me-1"> Modificar </a>
+                                    <a href="{% url 'estudiante_delete' est.nro_estudiante %}" class="btn btn-sm btn-outline-danger me-1" onclick="return confirm('¿Seguro que deseas eliminar el Estudiante {{ est.nombre }}?')"> Eliminar </a>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>

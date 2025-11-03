@@ -1,0 +1,52 @@
+{% extends "core/index.html" %}
+
+{% block title %}Creacion - Gestión Escolar{% endblock %}
+
+{% block contenido %}
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+        <h2 class="card-title text-center mb-4">
+            {{ titulo_pagina|default:"Agregar Curso" }}
+        </h2>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+            
+            <!-- Mostrar errores generales -->
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <!-- Campo: nombre -->
+            <div class="mb-3">
+                <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre del Curso</label>
+                {{ form.nombre }}
+                {% if form.nombre.errors %}
+                    <div class="text-danger small">
+                        {{ form.nombre.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Campo: nro_comision -->
+            <div class="mb-3">
+                <label for="{{ form.nro_comision.id_for_label }}" class="form-label">Número de Comisión</label>
+                {{ form.nro_comision }}
+                {% if form.nro_comision.errors %}
+                    <div class="text-danger small">
+                        {{ form.nro_comision.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Botones -->
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'curso_list' %}" class="btn btn-secondary">Volver</a>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

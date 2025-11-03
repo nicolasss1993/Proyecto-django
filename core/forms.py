@@ -10,6 +10,18 @@ class EstudianteForm(forms.ModelForm):
         }
 
 
+class EstudianteEditForm(forms.ModelForm):
+    class Meta:
+        model = Estudiante
+        fields = ['nombre', 'apellido', 'documento', 'fecha_de_nacimiento', 'nro_telefono']
+        widgets = {
+            'fecha_de_nacimiento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            "nombre": forms.TextInput(attrs={'class': 'form-control'}),
+            "apellido": forms.TextInput(attrs={'class': 'form-control'}),
+            "documento": forms.TextInput(attrs={'class': 'form-control'}),
+            "nro_telefono": forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
 """
 class EstudianteForm(forms.ModelForm):
     class Meta:
