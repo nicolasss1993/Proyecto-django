@@ -48,9 +48,21 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'estudiante_list' %}">Estudiantes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'curso_list' %}">Cursos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Profesores</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'estudiante_list' %}">Estudiantes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'curso_list' %}">Cursos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Profesores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'profile_detail' %}">Perfil ({{user.username}})</a></li>
+                        <li class="nav-item">
+                            <form action="{% url 'logout' %}" method="POST" style="display: inline">
+                                {% csrf_token %}
+                                <button type="submit" class="nav-link" > Cerrar sesion</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesion</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Registrarme</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

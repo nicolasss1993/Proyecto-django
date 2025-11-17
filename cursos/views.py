@@ -2,9 +2,10 @@ from cursos.forms import CursoForm
 from cursos.models import Cursos
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class CursoListView(ListView):
+class CursoListView(LoginRequiredMixin, ListView):
     model = Cursos
     template_name = "cursos/curso_list.html"
     context_object_name = "cursos"
@@ -16,14 +17,14 @@ class CursoListView(ListView):
         return Cursos.objects.all()
 
 
-class CursoCreateView(CreateView):
+class CursoCreateView(LoginRequiredMixin, CreateView):
     model = Cursos
     form_class = CursoForm
     template_name = "cursos/curso_form.html"
     success_url = reverse_lazy("curso_list")
 
 
-class CursoUpdateView(UpdateView):
+class CursoUpdateView(LoginRequiredMixin, UpdateView):
     model = Cursos
     form_class = CursoForm
     template_name = "cursos/curso_form.html"
@@ -32,7 +33,7 @@ class CursoUpdateView(UpdateView):
     slug_url_kwarg = "code"
 
 
-class CursoDeleteView(DeleteView):
+class CursoDeleteView(LoginRequiredMixin, DeleteView):
     model = Cursos
     template_name = "cursos/curso_confirm_delete.html"
     success_url = reverse_lazy("curso_list")
@@ -40,7 +41,7 @@ class CursoDeleteView(DeleteView):
     slug_url_kwarg = "nro_comision"
 
 
-class CursoDetailView(DetailView):
+class CursoDetailView(LoginRequiredMixin, DetailView):
     model = Cursos
     template_name = "cursos/curso_detail.html"
     context_object_name = "curso"
